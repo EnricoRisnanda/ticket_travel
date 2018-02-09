@@ -17,6 +17,20 @@ if(isset($_POST['submit'])){
 
   $konek->query("UPDATE rute SET depart='$depart',depart_time='$depart_time',arrived='$arrived',arrived_time='$arrived_time',dari='$dari',tujuan='$tujuan',harga='$harga' WHERE id='$getid'");
   echo "<script>alert('Succes')</script>";
+$res = $konek->query("SELECT rute.id,rute.id_pesawat, rute.depart,rute.depart_time,rute.arrived_time, rute.id_kota, rute.id_ktujuan, rute.harga,pesawat.id,pesawat.maskapai,asal.id as id_asal,tujuan.id as id_tujuan, asal.kota as dari, tujuan.kota as tujuan,asal.bandara as ban_dari,tujuan.bandara as ban_tujuan FROM rute INNER JOIN pesawat on rute.id_pesawat = pesawat.id LEFT JOIN kota as asal on rute.id_kota = asal.id LEFT JOIN kota as tujuan on rute.id_ktujuan = tujuan.id WHERE rute.id='$getid'");
+$data = $res->fetch_array(MYSQLI_ASSOC);
+
+if(isset($_POST['submit'])){
+  $id_pesawat = $_POST['id_pesawat'];
+  $depart = $_POST['depart'];
+  $depart_time = $_POST['depart_time'];
+  $arrived_time = $_POST['arrived_time'];
+  $id_kota = $_POST['id_kota'];
+  $id_ktujuan = $_POST['id_ktujuan'];
+  $harga = $_POST['harga'];
+
+  $konek->query("UPDATE rute SET id_pesawat='$id_pesawat',depart='$depart',depart_time='$depart_time',arrived_time='$arrived_time',id_kota='$id_kota',id_ktujuan='$id_ktujuan',harga='$harga' WHERE id='$getid'");
+
   header("location:../tables/viewrute.php");
 }
 ?>
@@ -512,6 +526,37 @@ if(isset($_POST['submit'])){
         <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
         <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
         <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="../../index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+              <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="../tables/viewmaskapai.php">
+              <i class="fa  fa-plane"></i> <span>Maskapai</span>
+              <span class="pull-right-container"></span>
+            </a>
+          </li>
+          <li>
+            <a href="../tables/viewkota.php">
+              <i class="fa fa-building-o"></i> <span>Kota & Bandara</span>
+              <span class="pull-right-container"></span>
+            </a>
+          </li>
+          <li class="active">
+            <a href="../tables/viewrute.php">
+              <i class="fa  fa-exchange"></i> <span>Rute</span>
+              <span class="pull-right-container"></span>
+            </a>
+          </li>
+        </li>
       </ul>
     </section>
     <!-- /.sidebar -->
@@ -542,6 +587,9 @@ if(isset($_POST['submit'])){
           <div class="box box-warning">
             <div class="box-header with-border">
               <h3 class="box-title">Input Rute</h3>
+
+              <h3 class="box-title">Edit Rute</h3>
+
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -570,6 +618,7 @@ if(isset($_POST['submit'])){
                       </div>
                   </div>
                 </div>
+
               <div class="form-group">
                 <div class="col-md-4">
                 <label>Arrived</label>
@@ -585,6 +634,11 @@ if(isset($_POST['submit'])){
                 <div class="bootstrap-timepicker">
                   <div class="form-group">
                       <label>Time</label>
+
+                <div class="bootstrap-timepicker">
+                  <div class="form-group">
+                      <label>Arrived</label>
+
                       <div class="input-group">
                       <input type="time" class="form-control timepicker" name="arrived_time" value="<?php echo $data['arrived_time']; ?>">
                       <div class="input-group-addon">
@@ -594,6 +648,7 @@ if(isset($_POST['submit'])){
                   </div>
                 </div>
                 <div class="form-group">
+
                   <label>Rute From</label>
                   <input type="text" class="form-control" name="dari" value="<?php echo $data['dari']; ?>">
                 </div>
@@ -602,6 +657,54 @@ if(isset($_POST['submit'])){
                 <div class="form-group">
                   <label>Rute To</label>
                   <input type="text" class="form-control" name="tujuan" value="<?php echo $data['tujuan']; ?>">
+
+                  <label>Maskapai</label>
+                  <select class="form-control" name="id_pesawat">
+                  <option value="<?php echo $data['id'] ?>"><?php echo $data['maskapai'] ?></option>
+                    <?php
+                    $sql = $konek->query("SELECT * FROM pesawat ORDER BY maskapai ASC ");
+                    if(mysqli_num_rows($sql) > 0){
+                      while($isi = mysqli_fetch_assoc($sql)){
+                        ?>
+                        <option value="<?php echo $isi['id'] ?>"><?php echo $isi['maskapai'] ?></option>
+                    <?php  
+                      }
+                    }
+                    ?>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Rute From</label>
+                  <select class="form-control" name="id_kota">
+                    <option value="<?php echo $data['id_asal'] ?>"><?php echo $data['dari'] ?>(<?php echo $data['ban_dari'] ?>)</option>
+                    <?php
+                    $sql = $konek->query("SELECT * FROM kota ORDER BY kota ASC");
+                    if(mysqli_num_rows($sql) > 0){
+                      while($isi = mysqli_fetch_assoc($sql)){
+                        ?>
+                        <option value="<?php echo $isi['id'] ?>"><?php echo $isi['kota'] ?>(<?php echo $isi['bandara'] ?>)</option>
+                        <?php
+                      }
+                    }
+                    ?>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Rute To</label>
+                  <select class="form-control" name="id_ktujuan">
+                    <option value="<?php echo $data['id_asal'] ?>"><?php echo $data['tujuan'] ?>(<?php echo $data['ban_tujuan'] ?>)</option>
+                    <?php
+                    $sql = $konek->query("SELECT * FROM kota ORDER BY kota ASC");
+                    if(mysqli_num_rows($sql) > 0){
+                      while($isi = mysqli_fetch_assoc($sql)){
+                        ?>
+                        <option value="<?php echo $isi['id'] ?>"><?php echo $isi['kota'] ?>(<?php echo $isi['bandara'] ?>)</option>
+                        <?php
+                      }
+                    }
+                    ?>
+                  </select>
+
                 </div>
                 <div class="form-group">
                   <label>Price</label>

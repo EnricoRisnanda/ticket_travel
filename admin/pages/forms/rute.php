@@ -3,6 +3,7 @@
 $konek = new mysqli('localhost','root','','ukk');
 
 if(isset($_POST['submit'])){
+
   $depart = $_POST['depart'];
   $depart_time = $_POST['depart_time'];
   $arrived = $_POST['arrived'];
@@ -13,6 +14,18 @@ if(isset($_POST['submit'])){
 
   $konek->query("INSERT INTO `rute`(depart,depart_time,arrived,arrived_time,dari,tujuan,harga) VALUES('$depart','$depart_time','$arrived','$arrived_time','$dari','$tujuan','$harga')");
   echo "<script>alert('Succes')</script>";
+
+  $id_pesawat = $_POST['id_pesawat'];
+  $depart = $_POST['depart'];
+  $depart_time = $_POST['depart_time'];
+  $arrived_time = $_POST['arrived_time'];
+  $id_kota = $_POST['id_kota'];
+  $id_ktujuan = $_POST['id_ktujuan'];
+  $harga = $_POST['harga'];
+
+  $konek->query("INSERT INTO rute(id_pesawat,depart,depart_time,arrived_time,id_kota,id_ktujuan,harga) VALUES('$id_pesawat','$depart','$depart_time','$arrived_time','$id_kota','$id_ktujuan','$harga') ");
+  header('location:../tables/viewrute.php');
+
 }
 ?>
 <html>
@@ -350,6 +363,7 @@ if(isset($_POST['submit'])){
             <li><a href="../../index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
             <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
           </ul>
+
         </li>
         <li class="treeview">
           <a href="#">
@@ -507,6 +521,26 @@ if(isset($_POST['submit'])){
         <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
         <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
         <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+
+        </li><li>
+          <a href="../tables/viewmaskapai.php">
+            <i class="fa  fa-plane"></i> <span>Maskapai</span>
+            <span class="pull-right-container"></span>
+          </a>
+        </li>
+        <li>
+          <a href="../tables/viewkota.php">
+            <i class="fa fa-building-o"></i> <span>Kota & Bandara</span>
+            <span class="pull-right-container"></span>
+          </a>
+        </li>
+        <li class="active">
+          <a href="../tables/viewrute.php">
+            <i class="fa  fa-exchange"></i> <span>Rute</span>
+            <span class="pull-right-container"></span>
+          </a>
+        </li>
+
       </ul>
     </section>
     <!-- /.sidebar -->
@@ -565,6 +599,7 @@ if(isset($_POST['submit'])){
                       </div>
                   </div>
                 </div>
+
               <div class="form-group">
                 <div class="col-md-4">
                 <label>Arrived</label>
@@ -580,6 +615,11 @@ if(isset($_POST['submit'])){
                 <div class="bootstrap-timepicker">
                   <div class="form-group">
                       <label>Time</label>
+
+                <div class="bootstrap-timepicker">
+                  <div class="form-group">
+                      <label>Arrived</label>
+
                       <div class="input-group">
                       <input type="time" class="form-control timepicker" name="arrived_time">
                       <div class="input-group-addon">
@@ -589,6 +629,7 @@ if(isset($_POST['submit'])){
                   </div>
                 </div>
                 <div class="form-group">
+
                   <label>Rute From</label>
                   <input type="text" class="form-control" name="dari">
                 </div>
@@ -597,6 +638,54 @@ if(isset($_POST['submit'])){
                 <div class="form-group">
                   <label>Rute To</label>
                   <input type="text" class="form-control" name="tujuan">
+
+                  <label>Maskapai</label>
+                  <select class="form-control" name="id_pesawat" id="id_pesawat" >
+                    <option></option>
+                    <?php
+                    $sql = $konek->query("SELECT * FROM pesawat ORDER BY maskapai ASC");
+                    if(mysqli_num_rows($sql) > 0){
+                      while($data = mysqli_fetch_assoc($sql)){
+                        ?>
+                        <option value="<?php echo $data['id'] ?>"><?php echo $data['maskapai'] ?></option>
+                    <?php  
+                      }
+                    }
+                    ?>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Rute From</label>
+                  <select class="form-control" name="id_kota">
+                    <option></option>
+                    <?php
+                    $sql = $konek->query("SELECT * FROM kota ORDER BY kota ASC");
+                    if(mysqli_num_rows($sql) > 0){
+                      while($data = mysqli_fetch_assoc($sql)){
+                        ?>
+                        <option value="<?php echo $data['id'] ?>"><?php echo $data['kota'] ?>(<?php echo $data['bandara'] ?>)</option>
+                        <?php
+                      }
+                    }
+                    ?>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Rute To</label>
+                  <select class="form-control" name="id_ktujuan">
+                    <option></option>
+                    <?php
+                    $sql = $konek->query("SELECT * FROM kota ORDER BY kota ASC");
+                    if(mysqli_num_rows($sql) > 0){
+                      while($data = mysqli_fetch_assoc($sql)){
+                        ?>
+                        <option value="<?php echo $data['id'] ?>"><?php echo $data['kota'] ?>(<?php echo $data['bandara'] ?>)</option>
+                        <?php
+                      }
+                    }
+                    ?>
+                  </select>
+
                 </div>
                 <div class="form-group">
                   <label>Price</label>
@@ -833,5 +922,11 @@ if(isset($_POST['submit'])){
 <script src="../../dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
+
+
+<script type="text/javascript">
+
+</script>
+
 </body>
 </html>

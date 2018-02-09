@@ -359,6 +359,7 @@ $cek = mysqli_query($cn, "SELECT * FROM rute WHERE id='$ambilid'");
             <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
           </ul>
         </li>
+
         <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
@@ -515,6 +516,27 @@ $cek = mysqli_query($cn, "SELECT * FROM rute WHERE id='$ambilid'");
         <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
         <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
         <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+
+        <li>
+          <a href="viewmaskapai.php">
+            <i class="fa  fa-plane"></i> <span>Maskapai</span>
+            <span class="pull-right-container"></span>
+          </a>
+        </li>
+        <li>
+          <a href="viewkota.php">
+            <i class="fa fa-building-o"></i> <span>Kota & Bandara</span>
+            <span class="pull-right-container"></span>
+          </a>
+        </li>
+        <li class="active">
+          <a href="viewrute.php">
+            <i class="fa  fa-exchange"></i> <span>Rute</span>
+            <span class="pull-right-container"></span>
+          </a>
+        </li>
+        </li>
+
       </ul>
     </section>
     <!-- /.sidebar -->
@@ -540,7 +562,11 @@ $cek = mysqli_query($cn, "SELECT * FROM rute WHERE id='$ambilid'");
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
+
               <a href="#" class="btn btn-default">Creat Rute</a>
+
+              <a href="../forms/rute.php" class="btn btn-default">Creat New</a>
+
             </div>
             <!-- /.box-header -->
             <div class="box-body">
@@ -548,6 +574,10 @@ $cek = mysqli_query($cn, "SELECT * FROM rute WHERE id='$ambilid'");
                 <thead>
                 <tr>
                   <th>No</th>
+
+
+                  <th>Maskapai</th>
+
                   <th>Depart At</th>
                   <th>Arrived At</th>
                   <th>Rute From</th>
@@ -558,7 +588,11 @@ $cek = mysqli_query($cn, "SELECT * FROM rute WHERE id='$ambilid'");
                 </thead>
                 <tbody>
                   <?php
+
                     $sql = mysqli_query($cn, "SELECT * FROM rute");
+
+                    $sql = mysqli_query($cn, "SELECT rute.id,rute.id_pesawat, rute.depart,rute.depart_time,rute.arrived_time, rute.id_kota, rute.id_ktujuan, rute.harga, pesawat.maskapai, asal.kota as dari, tujuan.kota as ke, asal.bandara as ban_dari, tujuan.bandara as ban_ke FROM rute INNER JOIN pesawat on rute.id_pesawat = pesawat.id LEFT JOIN kota as asal on rute.id_kota = asal.id LEFT JOIN kota as tujuan on rute.id_ktujuan = tujuan.id ORDER BY rute.depart DESC");
+
                     if(mysqli_num_rows($sql) == 0){
                       echo '';
                     }else{
@@ -569,10 +603,18 @@ $cek = mysqli_query($cn, "SELECT * FROM rute WHERE id='$ambilid'");
                           <td>'.$no++.'</td> 
                         ';
                         echo '
+
                           <td>'.$row['depart'].' AT '.$row['depart_time'].'</td>
                           <td>'.$row['arrived'].' AT '.$row['arrived_time'].'</td>
                           <td>'.$row['dari'].'</td>
                           <td>'.$row['tujuan'].'</td>
+
+                          <td>'.$row['maskapai'].'</td>
+                          <td>'.$row['depart'].' AT '.$row['depart_time'].'</td>
+                          <td>'.$row['arrived_time'].'</td>
+                          <td>'.$row['dari'].'('.$row['ban_dari'].')</td>
+                          <td>'.$row['ke'].'('.$row['ban_ke'].')</td>
+
                           <td>'.$row['harga'].'</td>
                           <td>';
                           echo '

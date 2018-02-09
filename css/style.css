@@ -12,7 +12,7 @@ html, body{
 body a,.grid_1,plan_1,plan_1.one,plan_1.two,i.icon1, i.icon2, i.icon3, i.icon4, i.icon5, i.icon6 {
 	transition:0.5s all;
 	-webkit-transition:0.5s all;
-	-moz-transition:0.5s all;
+	-moz-transition:0.5s all;.
 	-o-transition:0.5s all;
 	-ms-transition:0.5s all;
 }
@@ -140,7 +140,7 @@ i.fa.fa-lock {
 /*-- /header --*/
 /*-- banner --*/
 .banner {
-    background: url(../images/3.jpg)no-repeat;
+    background: url(../images/pesawat4.jpg)no-repeat;
     background-size: cover;
     -webkit-background-size: cover;
     -o-background-size: cover;
@@ -158,7 +158,7 @@ i.fa.fa-lock {
 .bann-info h2 {
     font-size: 26px;
     margin-bottom: 30px;
-    color: #34ad00;
+    color: white;
     font-weight: 700;
 }
 .bann-info {
@@ -193,7 +193,7 @@ i.fa.fa-lock {
     font-weight: 600;
     font-size: 14px;
     margin-bottom: 5px;
-	color: #191919;
+	color: white;
 }
 .bann-info1 {
     padding: 8em 5em 0em;
@@ -201,20 +201,20 @@ i.fa.fa-lock {
 }
 .bnr-right {
     float: left;
-	width:50%;
+	width:10%;
 }
 .bnr-left {
     float: left;
-	width:50%;
+	width: 25%;
 }
 .ban-bottom{
     margin-top: 30px;
 }
-button.seabtn {
+input.seabtn {
     padding: 6px 25px!important;
     font-size: 16px;
 	 text-indent: 0;
-    padding: 6px 20px;
+    padding: 0;
     color: #fff;
     background-color:#34ad00;
     border: 0;
@@ -225,12 +225,14 @@ button.seabtn {
     background-repeat: no-repeat;
     background-position: 96% center;
 } 
-button.seabtn:focus,button.seabtn:hover{
-    background-color:#1f8dd6;
+input.seabtn:focus,input.seabtn:hover{
+    background-color: white;
+    color: black;
     outline: 0;
 }
 .sear {
-    margin-top: 30px;
+    float: left;
+    width: 5%;
 }
 .bann-info1 h3 {
     font-size: 2.1em;
@@ -485,7 +487,7 @@ i.fa.fa-truck,i.fa.fa-user,i.fa.fa-ticket {
     display: inline-block;
 }
 li.trav {
-    width: 34%;
+    width: 28%;
 }
 li.dept {
     width: 13%;
@@ -2338,7 +2340,7 @@ i.fa.fa-truck, i.fa.fa-user, i.fa.fa-ticket {
 .routes h3 {
     font-size: 1.7em;
 }
-button.seabtn {
+input.seabtn {
     padding: 6px 20px!important;
     font-size: 15px;
 }
@@ -2991,7 +2993,7 @@ i.fa.fa-lock {
 .ban-top .inputLabel, .ban-bottom .inputLabel {
     font-size: 13px;
 }
-button.seabtn {
+input.seabtn {
     padding: 6px 16px!important;
     font-size: 14px;
 }
@@ -3950,12 +3952,12 @@ i.fa.fa-columns {
 .ban-top .inputLabel, .ban-bottom .inputLabel {
     font-size: 11px;
 }
-button.seabtn {
+input.seabtn {
     padding: 6px 13px!important;
     font-size: 13px;
 }
 .sear {
-    margin-top: 20px;
+    padding-top: 100px;
 }
 .ban-bottom {
     margin-top: 20px;
@@ -4368,5 +4370,59 @@ ul.set-1 {
 .login-left {
     width: 77%;
 }
+}
+
+/*-- decrease increase --*/
+.value-button {
+  display: inline-block;
+  border: 1px solid #ddd;
+  margin: 0px;
+  width: 40px;
+  height: 20px;
+  text-align: center;
+  vertical-align: middle;
+  padding: 11px 0;
+  background: #eee;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.value-button:hover {
+  cursor: pointer;
+}
+
+form #decrease {
+  margin-right: -4px;
+  border-radius: 8px 0 0 8px;
+}
+
+form #increase {
+  margin-left: -4px;
+  border-radius: 0 8px 8px 0;
+}
+
+form #input-wrap {
+  margin: 0px;
+  padding: 0px;
+}
+
+input#number {
+  text-align: center;
+  border: none;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  margin: 0px;
+  width: 40px;
+  height: 40px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 /*-- responsive design --*/
