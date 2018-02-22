@@ -102,76 +102,85 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!--- banner ---->
 <div class="banner">
 	<div class="container">
-	<div class="col-md-12 bann-info wow fadeInRight animated" data-wow-delay=".5s">
-		<h2>Online Tickets with Zero Booking Fees</h2>
-		<form action="daftar_p.php" method="GET" name="cari_rute">
-		<div class="ban-top">
-			<div class="bnr-left">
-                <label class="inputLabel">From</label>
-                <select class="form-control select2 " id="select2" name="c_dari">
-                  <option></option>
-                  <?php 
-                  $sql = $conn->query("SELECT * FROM kota");
-                  if(mysqli_num_rows($sql) > 0){
-                  	while($data= mysqli_fetch_assoc($sql)){
-                  		?>
-                  		<option><?php echo $data['kota'] ?></option>
-                  		<?php
-                  	}
-                  }
-                  ?>
-                </select>
+		<div class="col-md-5 bann-info1 wow fadeInLeft animated" data-wow-delay=".5s">
+			<i class="fa fa-columns"></i>
+			<h3>WORLD'S MOST TRAVEL BRAND</h3>
+		</div>
+		<div class="col-md-7 bann-info wow fadeInRight animated" data-wow-delay=".5s">
+			<h2 style="color:white;">Online Tickets with Zero Booking Fees</h2>
+			<form action="daftar_p.php" method="GET" name="cari_rute">
+			<div class="ban-top">
+				<div class="bnr-left">
+					<label class="inputLabel" style="color:white;">Keberangkatan</label>
+					<select class="form-control select2 " id="select2" name="c_dari">
+					  <option></option>
+	                  <?php 
+	                  $sql = $conn->query("SELECT * FROM kota");
+	                  if(mysqli_num_rows($sql) > 0){
+	                  	while($data= mysqli_fetch_assoc($sql)){
+	                  		?>
+	                  		<option><?php echo $data['kota'] ?></option>
+	                  		<?php
+	                  	}
+	                  }
+	                  ?>
+					</select>
+				</div>
+				<div class="bnr-left">
+					<label class="inputLabel">Tujuan</label>
+					<select class="form-control select2 " id="select2" name="c_ke">
+	                  <option></option>
+	                  <?php 
+	                  $sql = $conn->query("SELECT * FROM kota");
+	                  if(mysqli_num_rows($sql) > 0){
+	                  	while($data= mysqli_fetch_assoc($sql)){
+	                  		?>
+	                  		<option><?php echo $data['kota'] ?></option>
+	                  		<?php
+	                  	}
+	                  }
+	                  ?>
+	                </select>
+				</div>
+					<div class="clearfix"></div>
 			</div>
-			<div class="bnr-left">
-				<label class="inputLabel">Ke</label>
-                <select class="form-control select2 " id="select2" name="c_ke">
-                  <option></option>
-                  <?php 
-                  $sql = $conn->query("SELECT * FROM kota");
-                  if(mysqli_num_rows($sql) > 0){
-                  	while($data= mysqli_fetch_assoc($sql)){
-                  		?>
-                  		<option><?php echo $data['kota'] ?></option>
-                  		<?php
-                  	}
-                  }
-                  ?>
-                </select>
-			</div>
-			<div class="bnr-left">
-				<label class="inputLabel">Date of Journey</label>
-				<input class="form-control" type="date" name="c_date"  required=>
-			</div>
-			<div class="bnr-right">
-				<label class="inputLabel" >Penumpang</label>
-				<select class="form-control" name="c_penumpang">
-					<option value="1">1</option>
-					<option value="2">2</option>
-					<option value="3">3</option>
-					<option value="4">4</option>
-					<option value="5">5</option>
-					<option value="6">6</option>
-					<option value="7">7</option>
-				</select>
+			<div class="ban-bottom">
+				<div class="bnr-right">
+					<label class="inputLabel">Tanggal Keberangkatan</label>
+					<input class="form-control" type="date" name="c_date"  required auto>
+				</div>
+				<div class="bnr-right">
+					<label class="inputLabel" >Penumpang</label>
+					<select class="form-control" name="c_penumpang">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+						<option value="6">6</option>
+						<option value="7">7</option>
+					</select>
+				</div>
+					<div class="clearfix"></div>
+					<!---start-date-piker---->
+					<link rel="stylesheet" href="css/jquery-ui.css" />
+					<script src="js/jquery-ui.js"></script>
+						<script>
+							$(function() {
+							$( "#datepicker,#datepicker1" ).datepicker();
+							});
+						</script>
+				<!---/End-date-piker---->
 			</div>
 			<div class="sear">
-				<label class="inputLabel"> </label>
-				<input type="submit" class="btn btn-success" value="Cari" style="margin-top:20px;margin-left:10px;">
+					<input type="submit" class="btn btn-success" value="Cari" style="margin-top:20px;margin-left:10px;">
+			</form>
 			</div>
 		</div>
-			</form>
+		<div class="clearfix"></div>
 		</div>
+		<div class="clearfix"></div>
 	</div>
-</div>
-<div class="container">
-	<div class="col-md-5 bann-info1 wow fadeInLeft animated" data-wow-delay=".5s">
-		<i class="fa fa-columns"></i>
-		<h3>WORLD'S MOST TRAVEL BRAND</h3>
-	</div>
-	<div class="col-md-7 bann-info wow fadeInRight animated" data-wow-delay=".5s">
-		<h2>Online Tickets with Zero Booking Fees</h2>
-	</div>
-	<div class="clearfix"></div>
 </div>
 <!--- /banner ---->
 <!--- rupes ---->

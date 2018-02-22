@@ -347,19 +347,19 @@ if(isset($_POST['submit'])){
           </ul>
         </li>
         <li>
-          <a href="viewmaskapai.php">
+          <a href="../tables/viewmaskapai.php">
             <i class="fa  fa-plane"></i> <span>Maskapai</span>
             <span class="pull-right-container"></span>
           </a>
         </li>
-        <li>
-          <a href="viewkota.php">
+        <li class="active">
+          <a href="../tables/viewkota.php">
             <i class="fa fa-building-o"></i> <span>Kota & Bandara</span>
             <span class="pull-right-container"></span>
           </a>
         </li>
-        <li class="active">
-          <a href="viewrute.php">
+        <li>
+          <a href="../tables/viewrute.php">
             <i class="fa  fa-exchange"></i> <span>Rute</span>
             <span class="pull-right-container"></span>
           </a>

@@ -307,6 +307,7 @@ if(isset($_POST['submit'])){
       </div>
     </nav>
   </header>
+  
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
@@ -347,7 +348,7 @@ if(isset($_POST['submit'])){
             <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
           </ul>
         </li>
-        <li>
+        <li class="active">
           <a href="../tables/viewmaskapai.php">
             <i class="fa  fa-plane"></i> <span>Maskapai</span>
             <span class="pull-right-container"></span>
@@ -359,7 +360,7 @@ if(isset($_POST['submit'])){
             <span class="pull-right-container"></span>
           </a>
         </li>
-        <li class="active">
+        <li >
           <a href="../tables/viewrute.php">
             <i class="fa  fa-exchange"></i> <span>Rute</span>
             <span class="pull-right-container"></span>

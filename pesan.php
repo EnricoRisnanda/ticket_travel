@@ -1,5 +1,6 @@
 <?php
 include "conn.php";
+ob_start();
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -16,6 +17,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href='//fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
 <link href='//fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
 <link href="css/font-awesome.css" rel="stylesheet">
+<link rel="stylesheet" href="admin/bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="admin/bower_components/font-awesome/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="admin/bower_components/Ionicons/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="admin/dist/css/AdminLTE.min.css">
+  <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+  <link rel="stylesheet" href="admin/dist/css/skins/_all-skins.min.css">
 <!-- Custom Theme files -->
 <script src="js/jquery-1.12.0.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
@@ -104,112 +115,153 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </div>
 <!--- /footer-btm ---->
 <!--- banner-1 ---->
-<div class="banner-1 ">
-	<div class="container">
-		<h1 class="wow zoomIn animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: zoomIn;"> Green Wheels - Best in Class for Travel & Hotels</h1>
-	</div>
-</div>
-<!--- /banner-1 ---->
-<!--- bus-tp ---->
-<?php 
-		if(isset($_GET['c_dari'])){
-		$c_dari = $_GET['c_dari'];
-		$c_ke = $_GET['c_ke'];
-		$c_date = $_GET['c_date'];	
 
-		$sql = mysqli_query($conn," SELECT  rute.depart,rute.depart_time,rute.arrived_time, rute.id_kota, rute.id_ktujuan, pesawat.maskapai, asal.kota as dari, tujuan.kota as ke, asal.bandara as ban_dari, tujuan.bandara as ban_ke FROM rute INNER JOIN pesawat on rute.id_pesawat = pesawat.id LEFT JOIN kota as asal on rute.id_kota = asal.id LEFT JOIN kota as tujuan on rute.id_ktujuan = tujuan.id WHERE asal.kota='$c_dari' AND tujuan.kota='$c_ke' AND rute.depart='$c_date'");
-		 while($row = mysqli_fetch_assoc($sql)){
-		?>
-<div class="bus-tp">
+<div class="details">
 	<div class="container">
-		<p><?php echo date('D ,d M Y', strtotime($row['depart'])); ?></p>
-		<h2><?php echo $row['dari'] ?> ke <?php echo $row['ke'] ?></h2>
-		<div class="clearfix"></div>
-	</div>
-</div>
-<!--- /bus-tp ---->
-<!--- bus-btm ---->
-<div class="bus-btm">
-	<div class="container">
-		<ul>
-			<li class="trav">Maskapai</li>
-			<li class="dept">Depart</li>
-			<li class="arriv">Arrive</li>
-			<li class="seat">Seats</li>
-				<div class="clearfix"></div>
-		</ul>
-	</div>
-</div>
-<?php
-}
-}
-?>
-<!--- /bus-btm ---->
-<!--- bus-midd ---->
-<div class="bus-midd wow zoomIn animated animated" data-wow-delay=".5s" style="visibility: visible; animation-delay: 0.5s; animation-name: zoomIn;">
-	<div class="container">
-	<!--- ul-first  ---->
-		<?php 
-		if(isset($_GET['c_dari'])){
-		$c_dari = $_GET['c_dari'];
-		$c_ke = $_GET['c_ke'];
-		$c_date = $_GET['c_date'];	
-		$c_penumpang = $_GET['c_penumpang'];
+		<div class="details-top">
+			<div class="col-md-8 details-middle wow fadeInUp animated" data-wow-delay=".5s">
+              <?php
+              	$getid = $_GET['id'];
+              	$getkuota = $_GET['kuota'];
+                    $sql = mysqli_query($conn, "SELECT rute.id,rute.id_pesawat, rute.depart,rute.depart_time,rute.arrived_time, rute.id_kota, rute.id_ktujuan, rute.harga, pesawat.maskapai, asal.kota as dari, tujuan.kota as ke, asal.bandara as ban_dari, tujuan.bandara as ban_ke FROM rute INNER JOIN pesawat on rute.id_pesawat = pesawat.id LEFT JOIN kota as asal on rute.id_kota = asal.id LEFT JOIN kota as tujuan on rute.id_ktujuan = tujuan.id WHERE rute.id='$getid'");
 
-		$sql = mysqli_query($conn," SELECT  rute.id,rute.depart,rute.depart_time,rute.arrived_time,rute.harga, rute.id_kota, rute.id_ktujuan, pesawat.maskapai,pesawat.kuota, asal.kota as dari, tujuan.kota as ke, asal.bandara as ban_dari, tujuan.bandara as ban_ke FROM rute INNER JOIN pesawat on rute.id_pesawat = pesawat.id LEFT JOIN kota as asal on rute.id_kota = asal.id LEFT JOIN kota as tujuan on rute.id_ktujuan = tujuan.id WHERE asal.kota='$c_dari' AND tujuan.kota='$c_ke' AND rute.depart='$c_date' AND pesawat.kuota-$c_penumpang >0");
-		 while($row = mysqli_fetch_assoc($sql)){
-		?>
-		<ul class="first">
-			<li class="trav">
-				<div class="bus-ic">
-					<img src="images/bus.png" class="img-responsive" alt="">
-				</div>
-				<div class="bus-txt">
-					<h4 style="font-size:16px;"><?php echo $row['maskapai'] ?></h4>
-					<p>A/C Sleeper (1+1)</p>
-				</div>
-				<div class="clearfix"></div>
-			</li>
-			<li class="dept">
-				<div class="bus-ic1">
-					<i class="fa fa-clock-o"></i>
-				</div>
-				<div class="bus-txt1">
-					<h4 style="font-size:16px;"><?php echo $row['depart_time'] ?></h4>
-					<p>Duration</p>
-				</div>
-				<div class="clearfix"></div>
-			</li>
-			<li class="arriv">
-				<div class="bus-txt2">
-					<h4 style="font-size:16px;"><?php echo $row['arrived_time'] ?></h4>
-					<p>10:00 Hrs</p>
-				</div>
-			</li>
-			<li class="seat">
-				<div class="bus-ic3">
-					<img src="images/seat.png" class="img-responsive" alt="">
-				</div>
-				<div class="bus-txt3">
-					<h4 style="font-size:16px;">4 seats</h4>
-					<p>Window 4</p>
-				</div>
-				<div class="clearfix"></div>
-			</li>
-			<li class="fare">
-				<div class="bus-txt4">
-					<h5 style="font-size:20px;"><?php echo "Rp &nbsp", number_format($row['harga'],2)  ?></h5>
+                     while($row = mysqli_fetch_assoc($sql)){
+                     	$jumlah = $row['harga']*$getkuota;
+                     ?>
+            		<div class="box box-default">
+						<div class="box-header with-border">
+							<h3 class="box-title"><?php echo $row['dari'] ?>(<?php echo $row['ban_dari'] ?>) <span style="margin-left:8px;margin-right:8px;" class="glyphicon glyphicon-arrow-right"></span> <?php echo $row['ke'] ?>(<?php echo $row['ban_ke'] ?>)</h3>
+						</div>
+						<p style="margin-left:10px;margin:10px;font-size:16px;"><?php echo date('D, d M Y', strtotime($row['depart'])); ?></p>
+						<h4 style="margin-left:10px;"><?php echo $row['maskapai']; ?></h4>
+						<p style="margin-left:10px;margin:10px;font-size:16px;"><?php echo $row['depart_time'] ?><span style="margin-left:20px;margin-right:20px;" class="glyphicon glyphicon-arrow-right" ></span><?php echo $row['arrived_time']; ?></p>
+
+					</div>
+			</div>
+		</div>
+
+		<div class="details-top" >
+			<div class="col-md-4 details-middle wow fadeInUp animated" data-wow-delay=".5s">
+				<div class="box box-default">
+					<div class="box-header with-border">
+						<h3 class="box-title">Detail Harga</h3>
+					</div>
+					<div class="price" style="margin:10px;">
+						<div class="harga">Harga <div class="a" style="float:right"><?php echo number_format($row['harga'],2) ?></div></div>
+						<div class="penumpang">Jumlah Penumpang <div class="e" style="float:right"><?php echo $getkuota ?></div></div>
+					</div>
 					<?php
-					echo '<a href="pesan.php?id='.$row['id'].'&kuota='.$c_penumpang.'" class="btn btn-success">Pesan</a>';
-					?>
+                  	}
+                  ?>
+	                <div class="box-footer">
+	                <div class="bayar">Total Pembayaran <div class="s" style="float:right"><?php echo number_format($jumlah,2) ?></div> </div>
+	              	</div>
 				</div>
-			</li>
-				<div class="clearfix"></div>
-		</ul>
-		<?php
+			</div>
+		</div>
+
+		
+		<div class="details">
+				<div class="details-top col-md-8" style="padding:0px;">
+					<div class="col-md-12 details-middle wow fadeInUp animated" data-wow-delay=".5s">
+					<div class="box-header with-border">
+						<h3 class="box-title">Contact Person</h3>
+					</div>
+					<form method="POST">
+					<div class="isi">
+						<div class="form-group">
+							<label>Nama</label>
+							<input type="text" class="form-control" id="exampleInputEmail1" name="nama">
+						</div> 
+						<div class="bnr-left">
+							<label>No Telepon</label>
+							<input type="text" class="form-control" name="phone">
+						</div>
+						<div class="bnr-left">
+							<label style="font-style:none;">Email</label>
+							<input type="text" class="form-control" name="email">
+						</div>
+					</div>
+					</div>
+				</div>
+		</div>
+	</div>
+</div>
+</div>
+	<?php
+	$jumlah = $_GET['kuota'];
+	$no=1;
+
+	
+	
+	if (isset($_POST['submit'])) {
+		$get= array(
+		'kode' => $_POST['token'],
+		'kuota' => $_GET['kuota']
+		);
+		$get_data = http_build_query($get);
+
+		for ($i=1; $i <=$jumlah; $i++) { 
+			$id_rute = $_POST['id_rute'];
+			$nama = $_POST['nama'];
+			$phone = $_POST['phone'];
+			$email = $_POST['email'];
+			$titel = $_POST['titel'.$i];
+			$penumpang = $_POST['penumpang'.$i];
+			$token = $_POST['token'];
+
+			$conn->query("INSERT INTO costumer(id_rute,nama,phone,email,titel,penumpang,token) VALUES ('$id_rute','$nama','$phone','$email','$titel','$penumpang','$token') ");			
 		}
-		}
-		?>
+		header('Location:seat.php?'.$get_data);
+	}
+	?>
+	<?php 
+		for ($i=1; $i <=$jumlah; $i++) { 
+	?>
+<div class="details">
+	<div class="container">
+		<div class="details-top col-md-8" style="padding:0px;">
+			<div class="col-md-12 details-middle wow fadeInUp animated" data-wow-delay=".5s">
+			<div class="box-header with-border">
+				<h3 class="box-title">Data Penumpang <?php echo $no++ ?></h3>
+			</div>
+			<div class="isi" style="margin:10px;">
+				<div class="form-group">
+					<label>Titel</label>
+					<select class="form-control" name="titel<?php echo $i?>" style="width:40%">
+						<option>Pilih titel sesuai KTP</option>
+						<option value="Tuan">Tuan</option>
+						<option value="Nyonya">Nyonya</option>
+						<option value="Nona">Nona</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<label>Nama</label>
+					<input type="text" class="form-control" name="penumpang<?php echo $i?>">
+				</div><?php 
+					$str = 'abcdefghijklmnopqrstuvwqyz1234567890';
+					$shuffle = strtoupper(str_shuffle($str));
+				 ?>
+				<input type="text" name="token" value="<?php echo $shuffle; ?>">
+				<input type="text" name="id_rute" value="<?php echo $getid ?>">
+			</div>
+			</div><div class="clearfix"></div>
+		</div>
+	</div>
+</div>
+	<?php 
+	}
+	?>
+	<div class="details">
+		<div class="container">
+			<div class=" col-md-8" style="padding:20px;">
+				<input type="submit" name="submit" class="btn btn-primary" value="Pesan Sekarang" style="float:right;">
+			</div>
+		</div>
+	</div>
+					</form>
+					
+					
 	</div>
 </div>
 <!--- /bus-midd ---->
